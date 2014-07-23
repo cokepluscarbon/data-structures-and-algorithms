@@ -1,0 +1,187 @@
+package io.cokepluscarbon.collection;
+
+import java.util.Iterator;
+
+public class LinkedList<E> implements Iterable<E> {
+	private Node<E> first;
+	private Node<E> last;
+	private int size;
+
+	public int size() {
+		return size;
+	}
+
+	public boolean isEmpty() {
+		return size() == 0;
+	}
+
+	public boolean contains(E e) {
+		return indexOf(e) != -1;
+	}
+
+	public Object[] toArray() {
+		Object[] array = new Object[size];
+
+		int index = 0;
+		for (Node<E> curr = first; first != null; curr = curr.next) {
+			array[index++] = curr.element;
+		}
+
+		return array;
+	}
+
+	public boolean add(E e) {
+		if (size() == 0) {
+			first = last = new Node<E>(null, e, null);
+		} else {
+			Node<E> node = new Node<E>(last, e, null);
+			last.next = node;
+			last = node;
+		}
+		size++;
+
+		return true;
+	}
+
+	public boolean remove(Object o) {
+		if (o == null) {
+			for (Node<E> curr = first; curr != null; curr = curr.next) {
+				if (curr.element == null) {
+					unlink(curr);
+					return true;
+				}
+			}
+		} else {
+			for (Node<E> curr = first; curr != null; curr = curr.next) {
+				if (curr.element.equals(o)) {
+					unlink(curr);
+					return true;
+				}
+			}
+		}
+
+		return false;
+
+	}
+
+	public void clear() {
+		first = last = null;
+		size = 0;
+	}
+
+	public E get(int index) {
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		int i = 0;
+		Node<E> curr = first;
+		while (i != index) {
+			curr = curr.next;
+			i++;
+		}
+		return curr.element;
+	}
+
+	public E set(int index, E e) {
+		Node<E> node = getNode(index);
+
+		E old = node.element;
+		node.element = e;
+
+		return old;
+	}
+
+	public E remove(int index) {
+		Node<E> node = getNode(index);
+
+		if (size() == 1) {
+			first = last = null;
+		} else {
+			if (node == first) {
+				first = first.next;
+				first.pre = null;
+			} else if (node == last) {
+				last = last.pre;
+				last.next = null;
+			} else {
+				node.pre.next = node.next;
+				node.next.pre = node.pre;
+			}
+		}
+		size--;
+
+		return node.element;
+	}
+
+	public int indexOf(E e) {
+		int index = 0;
+		if (e == null) {
+			for (Node<E> curr = first; curr != null; curr = curr.next) {
+				if (curr.element == null) {
+					return index;
+				}
+				index++;
+			}
+		} else {
+			for (Node<E> curr = first; curr != null; curr = curr.next) {
+				if (curr.element.equals(e)) {
+					return index;
+				}
+				index++;
+			}
+		}
+
+		return -1;
+	}
+
+	public Iterator<E> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private void unlink(Node<E> curr) {
+		if (size() == 1) {
+			first = last = null;
+		} else {
+			if (curr == first) {
+				first = curr.next;
+				first.pre = null;
+			} else if (curr == last) {
+				last = curr.pre;
+				last.next = null;
+			} else {
+				curr.pre.next = curr.next;
+				curr.next.pre = curr.pre;
+			}
+		}
+		size--;
+	}
+
+	private Node<E> getNode(int index) {
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		int i = 0;
+		Node<E> curr = first;
+		while (i != index) {
+			curr = curr.next;
+			i++;
+		}
+
+		return curr;
+	}
+
+	public static class Node<E> {
+		Node<E> pre;
+		Node<E> next;
+		E element;
+
+		Node(Node<E> pre, E element, Node<E> next) {
+			this.element = element;
+			this.pre = pre;
+			this.next = next;
+		}
+	}
+}
