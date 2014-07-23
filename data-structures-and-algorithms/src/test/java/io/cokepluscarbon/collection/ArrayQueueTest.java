@@ -1,4 +1,5 @@
 package io.cokepluscarbon.collection;
+
 import io.cokepluscarbon.collection.ArrayQueue;
 
 import java.util.NoSuchElementException;
@@ -47,11 +48,11 @@ public class ArrayQueueTest {
 		queue.add("pear");
 		queue.add("banana");
 
-		Assert.assertEquals(queue.remove(), "apple");
-		Assert.assertEquals(queue.remove(), "orange");
+		Assert.assertEquals("apple", queue.remove());
+		Assert.assertEquals("orange", queue.remove());
 		Assert.assertEquals(2, queue.size());
-		Assert.assertEquals(queue.remove(), "pear");
-		Assert.assertEquals(queue.remove(), "banana");
+		Assert.assertEquals("pear", queue.remove());
+		Assert.assertEquals("banana", queue.remove());
 		Assert.assertEquals(0, queue.size());
 	}
 

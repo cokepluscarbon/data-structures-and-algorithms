@@ -30,7 +30,7 @@ public class ArrayQueue<E> {
 			throw new IllegalStateException();
 		}
 
-		items[addCount++ / items.length] = element;
+		items[addCount++ % items.length] = element;
 		size++;
 		return true;
 	}
@@ -43,7 +43,7 @@ public class ArrayQueue<E> {
 			throw new IllegalStateException();
 		}
 
-		items[addCount++ / items.length] = element;
+		items[addCount++ % items.length] = element;
 		size++;
 		return true;
 	}
@@ -61,7 +61,7 @@ public class ArrayQueue<E> {
 		}
 
 		size--;
-		return (E) items[(addCount - (size() + 1)) / items.length];
+		return (E) items[(addCount - (size() + 1)) % items.length];
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class ArrayQueue<E> {
 			return null;
 		}
 		size--;
-		return (E) items[(addCount - (size() + 1)) / items.length];
+		return (E) items[(addCount - (size() + 1)) % items.length];
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class ArrayQueue<E> {
 			return null;
 		}
 
-		return (E) items[(addCount - size()) / items.length];
+		return (E) items[(addCount - size()) % items.length];
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class ArrayQueue<E> {
 			throw new NoSuchElementException();
 		}
 
-		return (E) items[(addCount - size()) / items.length];
+		return (E) items[(addCount - size()) % items.length];
 	}
 
 }
