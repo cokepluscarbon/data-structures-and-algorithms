@@ -133,20 +133,30 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 		return binaryNode;
 	}
 
-	public Iterator<E> preOrder() {
-		return null;
+	public void preOrder() {
+		printPreOrder(root);
+	}
+	
+	public void inOrder(){
+		printInOrder(root);
 	}
 
-	public Iterator<E> inOrder() {
-		return null;
+	private void printPreOrder(BinaryNode<E> binaryNode) {
+		if (binaryNode == null) {
+			return;
+		}
+		System.out.println(binaryNode.element);
+		printPreOrder(binaryNode.leftChild);
+		printPreOrder(binaryNode.rightChild);
 	}
-
-	public Iterator<E> postOrder() {
-		return null;
-	}
-
-	public Iterator<E> levelOrder() {
-		return null;
+	
+	private void printInOrder(BinaryNode<E> binaryNode) {
+		if (binaryNode == null) {
+			return;
+		}
+		printPreOrder(binaryNode.leftChild);
+		System.out.println(binaryNode.element);
+		printPreOrder(binaryNode.rightChild);
 	}
 
 	// 有无static的区别???
@@ -163,18 +173,6 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 			this.element = element;
 			this.leftChild = leftChild;
 			this.rightChild = rightChild;
-		}
-	}
-
-	private class PreOrderIterator<E> implements Iterator<E> {
-		@Override
-		public E next() {
-			return null;
-		}
-
-		@Override
-		public boolean hasNext() {
-			return false;
 		}
 	}
 
