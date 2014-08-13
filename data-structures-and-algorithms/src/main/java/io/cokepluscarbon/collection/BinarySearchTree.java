@@ -1,9 +1,5 @@
 package io.cokepluscarbon.collection;
 
-import java.util.Iterator;
-
-import javax.swing.tree.DefaultTreeModel;
-
 /**
  * Comparator与Comparable && Iterator与Iterable 叶节点采用null节点，可以去掉很多不必要的判断
  * 
@@ -124,7 +120,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 		} else if (result > 0) {
 			binaryNode.rightChild = remove(element, binaryNode.rightChild);
 		} else if (binaryNode.leftChild != null && binaryNode.rightChild != null) { // 处理两个节点的情况
-			binaryNode.element = findMax(binaryNode.rightChild).element;
+			binaryNode.element = findMin(binaryNode.rightChild).element;
 			binaryNode.rightChild = remove(binaryNode.element, binaryNode.rightChild); // 递归调用remove
 		} else { // 处理只有一个节点或没有子节点的情况
 			binaryNode = (binaryNode.rightChild == null ? binaryNode.leftChild : binaryNode.rightChild);
@@ -135,28 +131,44 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 
 	public void preOrder() {
 		printPreOrder(root);
+		System.out.println();
 	}
-	
-	public void inOrder(){
+
+	public void inOrder() {
 		printInOrder(root);
+		System.out.println();
+	}
+
+	public void postOrder() {
+		printPostOrder(root);
+		System.out.println();
 	}
 
 	private void printPreOrder(BinaryNode<E> binaryNode) {
 		if (binaryNode == null) {
 			return;
 		}
-		System.out.println(binaryNode.element);
+		System.out.printf("%3s", binaryNode.element);
 		printPreOrder(binaryNode.leftChild);
 		printPreOrder(binaryNode.rightChild);
 	}
-	
+
 	private void printInOrder(BinaryNode<E> binaryNode) {
 		if (binaryNode == null) {
 			return;
 		}
-		printPreOrder(binaryNode.leftChild);
-		System.out.println(binaryNode.element);
-		printPreOrder(binaryNode.rightChild);
+		printInOrder(binaryNode.leftChild);
+		System.out.printf("%3s", binaryNode.element);
+		printInOrder(binaryNode.rightChild);
+	}
+
+	private void printPostOrder(BinaryNode<E> binaryNode) {
+		if (binaryNode == null) {
+			return;
+		}
+		printPostOrder(binaryNode.leftChild);
+		printPostOrder(binaryNode.rightChild);
+		System.out.printf("%3s", binaryNode.element);
 	}
 
 	// 有无static的区别???
