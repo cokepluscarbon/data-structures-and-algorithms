@@ -1,5 +1,7 @@
 package io.cokepluscarbon.collection;
 
+import java.util.Stack;
+
 /**
  * Comparator与Comparable && Iterator与Iterable 叶节点采用null节点，可以去掉很多不必要的判断
  * 
@@ -145,21 +147,56 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 	}
 
 	private void printPreOrder(BinaryNode<E> binaryNode) {
-		if (binaryNode == null) {
-			return;
+		Stack<BinaryNode<E>> stack = new Stack<BinaryNode<E>>();
+		stack.push(binaryNode);
+
+		while (!stack.isEmpty()) {
+			BinaryNode<E> currentNode = stack.pop();
+			System.out.printf("%3s", currentNode.element);
+
+			if (currentNode.rightChild != null) {
+				stack.push(currentNode.rightChild);
+			}
+			if (currentNode.leftChild != null) {
+				stack.push(currentNode.leftChild);
+			}
 		}
-		System.out.printf("%3s", binaryNode.element);
-		printPreOrder(binaryNode.leftChild);
-		printPreOrder(binaryNode.rightChild);
+		/**
+		 * if (binaryNode == null) { return; } System.out.printf("%3s",
+		 * binaryNode.element); printPreOrder(binaryNode.leftChild);
+		 * printPreOrder(binaryNode.rightChild);
+		 **/
 	}
 
 	private void printInOrder(BinaryNode<E> binaryNode) {
-		if (binaryNode == null) {
-			return;
+		Stack<BinaryNode<E>> stack = new Stack<BinaryNode<E>>();
+
+		while (true) {
+			goAloneLeftBranch(stack, binaryNode);
+
+			if (stack.isEmpty()) {
+				break;
+			}
+
+			binaryNode = stack.pop();
+			System.out.printf("%3s", binaryNode.element);
+			binaryNode = binaryNode.rightChild;
 		}
-		printInOrder(binaryNode.leftChild);
-		System.out.printf("%3s", binaryNode.element);
-		printInOrder(binaryNode.rightChild);
+
+		// if (binaryNode == null) {
+		// return;
+		// }
+		// printInOrder(binaryNode.leftChild);
+		// System.out.printf("%3s", binaryNode.element);
+		// printInOrder(binaryNode.rightChild);
+
+	}
+
+	private void goAloneLeftBranch(Stack<BinaryNode<E>> stack, BinaryNode<E> node) {
+		while (node != null) {
+			stack.push(node);
+			node = node.leftChild;
+		}
 	}
 
 	private void printPostOrder(BinaryNode<E> binaryNode) {

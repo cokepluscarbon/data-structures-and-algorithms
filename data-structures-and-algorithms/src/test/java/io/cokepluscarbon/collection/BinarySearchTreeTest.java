@@ -64,4 +64,9 @@ public class BinarySearchTreeTest {
 		Assert.assertEquals(false, binarySearchTree.contains(5));
 		Assert.assertEquals(true, binarySearchTree.contains(9));
 	}
+	
+	@Test
+	public void printInOrder(){
+		binarySearchTree.inOrder();
+	}
 }
