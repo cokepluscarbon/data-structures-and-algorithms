@@ -1,11 +1,9 @@
 package io.cokepluscarbon.tree;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class TreeLinkedList<E> implements Tree<E, TreeLinkedList<E>>,
-		Iterable<TreeLinkedList<E>> {
+public class TreeLinkedList<E> implements Tree<E, TreeLinkedList<E>> {
 	private E element;
 	private TreeLinkedList<E> parent;
 	private TreeLinkedList<E> firstChild;
@@ -126,24 +124,5 @@ public class TreeLinkedList<E> implements Tree<E, TreeLinkedList<E>>,
 			}
 
 		}
-	}
-
-	@Override
-	public Iterator<TreeLinkedList<E>> iterator() {
-		return new TreeIterator();
-	}
-
-	public class TreeIterator implements Iterator<TreeLinkedList<E>> {
-
-		@Override
-		public boolean hasNext() {
-			return false;
-		}
-
-		@Override
-		public TreeLinkedList<E> next() {
-			return null;
-		}
-
 	}
 }
